@@ -1,0 +1,7 @@
+DROP DATABASE IF EXISTS schedules;
+CREATE DATABASE schedules;
+
+USE schedules;
+
+CREATE TABLE schedule (
+   startDate VARCHAR(255) NOT NULL, endDate VARCHAR(255) NOT NULL, title VARCHAR(255) NOT NULL, userName VARCHAR(255) NOT NULL);
