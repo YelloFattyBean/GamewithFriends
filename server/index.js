@@ -6,9 +6,9 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const authRoute = require('./routes/auth');
+const schedRoute = require('./routes/schedule');
 // eslint-disable-next-line no-unused-vars
 const discordStrategy = require('./discordstrategy');
-const Schedule = require('../models/Schedule');
 
 const PORT = 3000;
 
@@ -27,33 +27,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/schedule', schedRoute);
 app.use('/auth', authRoute);
-
-app.get('/api/schedule', (req, res) => {
-  Schedule.findAll()
-    .then((data) => {
-      console.log(data);
-      res.send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(418);
-    });
-});
-
-app.post('/api/schedule', (req, res) => {
-  const {
-    startDate, endDate, title, userName,
-  } = req.body;
-  Schedule.create({
-    startDate,
-    endDate,
-    title,
-    userName,
-  })
-    .then((data) => res.send(data))
-    .catch((err) => console.log(err));
-});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

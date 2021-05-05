@@ -21,7 +21,10 @@ class App extends React.Component {
 
   getEvent() {
     axios.get('/api/schedule')
-      .then(({ data }) => this.setState({ schedule: data }))
+      .then(({ data }) => {
+        console.log(data);
+        this.setState({ schedule: data });
+      })
       .catch((err) => console.log(err));
   }
 
@@ -33,7 +36,6 @@ class App extends React.Component {
 
   render() {
     const { schedule } = this.state;
-    console.log(schedule);
     if (schedule === []) {
       return <h1>loading...</h1>;
     }
