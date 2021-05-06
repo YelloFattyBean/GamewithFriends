@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const authRoute = require('./routes/auth');
 const schedRoute = require('./routes/schedule');
+const userRoute = require('./routes/user');
 // eslint-disable-next-line no-unused-vars
 const discordStrategy = require('./discordstrategy');
 
@@ -28,6 +29,7 @@ app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/schedule', schedRoute);
+app.use('/api/user', userRoute);
 app.use('/auth', authRoute);
 
 app.listen(PORT, () => {

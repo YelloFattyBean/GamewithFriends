@@ -51,10 +51,9 @@ function DateTime({ addEvent, classes, ...rest }) {
   });
 
   const classed = useStyles();
+
   return (
     <form onSubmit={handleSubmit}>
-      <div className="headline">GamingwithFriends</div>
-      <div className="title">Schedule Availability:</div>
       <div className="titles">
         Username:
         <input id="box" type="text" name="userName" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
