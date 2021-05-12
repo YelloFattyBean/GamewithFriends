@@ -31,7 +31,7 @@ const Calendar = ({ scheduleData }) => (
   <Paper>
     <Scheduler
       data={scheduleData}
-      height={600}
+      height={790}
     >
       <ViewState />
       <DayView
