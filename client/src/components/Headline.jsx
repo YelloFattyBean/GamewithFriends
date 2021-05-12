@@ -48,7 +48,7 @@ const Headline = ({ User }) => {
       <Box display="flex">
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Title mx="auto" mb={0} alignitems="center" justifycontent="center" color="purple">Gaming with Friends</Title>
+          <Title mx="auto" mb={0} alignitems="center" justifycontent="center" color="yellow">Gaming with Friends</Title>
         </ThemeProvider>
       </Box>
       <Box display="flex">
