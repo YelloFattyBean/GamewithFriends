@@ -18,6 +18,9 @@ class App extends React.Component {
     this.addEvent = this.addEvent.bind(this);
     this.getEvent = this.getEvent.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.updateEvent = this.updateEvent.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
+    this.commitChanges = this.commitChanges.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +50,31 @@ class App extends React.Component {
       .catch((err) => console.log(err));
   }
 
+  updateEvent(id, update) {
+    axios.patch(`/api/schedule/:${id}`, update)
+      .then(this.getEvent())
+      .catch((err) => console.log(err));
+  }
+
+  deleteEvent(id) {
+    axios.delete(`/api/schedule/:${id}`)
+      .then(this.getEvent())
+      .catch((err) => console.log(err));
+  }
+
+  commitChanges({ changed, deleted }) {
+    const { schedule } = this.state;
+    const iD = schedule.map((appt) => appt.id);
+    const data = schedule.map((appt) => appt);
+    if (changed) {
+      this.updateEvent(iD, data);
+    }
+    if (deleted !== undefined) {
+      console.log(iD);
+      this.deleteEvent(iD);
+    }
+  }
+
   render() {
     const { schedule, user } = this.state;
     if (schedule === []) {
@@ -56,7 +84,7 @@ class App extends React.Component {
       <Background bgcolor="#3e6297">
         <Headline User={user} />
         <DateTime addEvent={this.addEvent} />
-        <Calendar scheduleData={schedule} />
+        <Calendar scheduleData={schedule} changeData={this.commitChanges} />
       </Background>
     );
   }

@@ -3,7 +3,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+// eslint-disable-next-line no-unused-vars
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, TodayButton, DateNavigator, Toolbar, AppointmentTooltip,
   AppointmentForm,
@@ -27,13 +28,16 @@ const Appointment = ({
   </Appointments.Appointment>
 );
 
-const Calendar = ({ scheduleData }) => (
+const Calendar = ({ scheduleData, changeData }) => (
   <Paper>
     <Scheduler
       data={scheduleData}
       height={790}
     >
       <ViewState />
+      <EditingState
+        onCommitChanges={changeData}
+      />
       <DayView
         startDayHour={0}
         endDayHour={24}
@@ -47,10 +51,9 @@ const Calendar = ({ scheduleData }) => (
       <AppointmentTooltip
         showCloseButton
         showOpenButton
+        showDeleteButton
       />
-      <AppointmentForm
-        readOnly
-      />
+      <AppointmentForm />
     </Scheduler>
   </Paper>
 );
