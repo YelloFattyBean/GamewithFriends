@@ -3,10 +3,14 @@ import React from 'react';
 import axios from 'axios';
 import { styled } from '@material-ui/core/styles';
 import { compose, spacing, palette } from '@material-ui/system';
+import { io } from 'socket.io-client';
 
 import DateTime from './SubmissionForm';
 import Calendar from './Calendar';
 import Headline from './Headline';
+
+// eslint-disable-next-line no-unused-vars
+const socket = io.connect('http://localhost:3000');
 
 class App extends React.Component {
   constructor(props) {

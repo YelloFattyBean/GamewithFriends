@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
+const socket = require('socket.io');
 const Schedule = require('../models/Schedule');
 const authRoute = require('./routes/auth');
 const schedRoute = require('./routes/schedule');
@@ -12,9 +13,12 @@ const userRoute = require('./routes/user');
 // eslint-disable-next-line no-unused-vars
 const discordStrategy = require('./discordstrategy');
 
-const PORT = 3000;
-
 const app = express();
+const PORT = 3000;
+const server = app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Server is listening at: ${PORT}`);
+});
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(session({
@@ -34,7 +38,6 @@ app.use('/api/user', userRoute);
 app.use('/auth', authRoute);
 
 app.patch('/api/schedule/:id', (req, res) => {
-  // const Id = req.params.id;
   const {
     startDate, endDate, title, userName,
   } = req.body;
@@ -65,9 +68,11 @@ app.delete('/api/schedule/:id', async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server is listening at: ${PORT}`);
+const io = socket(server);
+
+// eslint-disable-next-line no-shadow
+io.on('connection', (socket) => {
+  console.log('made socket connection', socket.id);
 });
 
 module.exports = app;

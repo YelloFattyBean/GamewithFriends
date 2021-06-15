@@ -26,27 +26,4 @@ router.post('/', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// router.patch('/:id', (req, res) => {
-//   const {
-//     startDate, endDate, title, userName,
-//   } = req.body;
-//   Schedule.create({
-//     startDate,
-//     endDate,
-//     title,
-//     userName,
-//   })
-//     .then((data) => res.send(data))
-//     .catch((err) => console.log(err));
-// });
-
-// router.delete('/:id', (req, res) => {
-//   const schedule = Schedule.findOne({ where: { id: req.params.id } });
-//   if (!schedule) {
-//     console.log('err');
-//   }
-//   schedule.destroy()
-//     .then((data) => res.send(data))
-//     .catch((err) => console.log(err));
-// });
 module.exports = router;
